@@ -1,23 +1,36 @@
 
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import Navbar from "./components/student/Navbar";
+import StudentLayout from "./layouts/StudentLayout";
+
 import Home from "./pages/student/Home";
 import CourseList from "./pages/student/CourseList";
-const App = () => {
+import CourseDetails from "./pages/student/CourseDetails";
+
+function App() {
   return (
-    <>
+    <Routes>
 
-      <Navbar />
-
-     
-      <Routes>
+      {/* STUDENT LAYOUT */}
+      <Route element={<StudentLayout />}>
+        
+        {/* HOME */}
         <Route path="/" element={<Home />} />
+
+        {/* COURSE LIST */}
         <Route path="/course-list" element={<CourseList />} />
-      </Routes>
-    </>
+        <Route path="/course-list/:keyword" element={<CourseList />} />
+
+        {/* COURSE DETAILS */}
+        <Route path="/course/:id" element={<CourseDetails />} />
+
+      </Route>
+
+      {/* FALLBACK */}
+      <Route path="*" element={<Navigate to="/" />} />
+
+    </Routes>
   );
-};
+}
 
 export default App;
-
